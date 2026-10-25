@@ -1,0 +1,22 @@
+# Conda environment (recommended on Windows: conda-forge ships a prebuilt
+# pybullet, so no C++ compiler is needed).
+#   conda env create -f environment.yml
+#   conda activate downwash_swarm
+#   pip install -e external/gym-pybullet-drones --no-deps
+name: downwash_swarm
+channels:
+  - conda-forge
+dependencies:
+  - python=3.10
+  - pybullet>=3.2.5
+  - numpy>=1.24
+  - scipy>=1.10
+  - pandas>=2.0
+  - matplotlib>=3.7
+  - pyyaml>=6.0
+  - pytest>=7.4
+  - pip
+  - pip:
+      - gymnasium
+      - transforms3d
+      - pillow
