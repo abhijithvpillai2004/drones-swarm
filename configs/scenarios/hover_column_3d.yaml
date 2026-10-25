@@ -1,0 +1,14 @@
+name: "hover_column_3d"
+description: "Three drones in a vertical column to test cascading cumulative downwash on middle and bottom drones"
+drone_count: 3
+duration_sec: 5.0
+trajectory_type: "HoverColumnFormation"
+parameters:
+  z_top: 1.8
+  dz: 0.6
+  x_center: 0.0
+  y_center: 0.0
+initial_positions:
+  - [0.0, 0.0, 1.8]  # Top drone (unaffected)
+  - [0.0, 0.0, 1.2]  # Middle drone (in wake of drone 0)
+  - [0.0, 0.0, 0.6]  # Bottom drone (in cascading wake of drones 0 and 1)

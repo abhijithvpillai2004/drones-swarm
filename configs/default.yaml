@@ -1,0 +1,30 @@
+# Default simulation and swarm configuration
+simulation:
+  sim_freq_hz: 240           # Physics step frequency in Hz
+  ctrl_freq_hz: 48           # Control update frequency in Hz
+  gui: false                 # Headless by default
+  record_video: false
+  duration_sec: 10.0         # Default simulation duration
+
+drone:
+  model: "cf2x"              # Crazyflie 2.x quadrotor
+  count: 2                   # Default drone count
+
+random:
+  seed: 42                   # Default random seed for reproducibility
+
+paths:
+  results_dir: "results"
+  configs_dir: "configs"
+
+# Optional sensor noise on state estimates (default off)
+noise:
+  enabled: false
+  pos_std: 0.005       # [m] 5mm standard deviation # TODO: verify against Hönig 2018 / Neural-Swarm
+  vel_std: 0.010       # [m/s] 1cm/s standard deviation # TODO: verify against Hönig 2018 / Neural-Swarm
+  rpy_std: 0.005       # [rad] ~0.3 deg standard deviation # TODO: verify against Hönig 2018 / Neural-Swarm
+
+# Optional command latency buffer (default off)
+delay:
+  enabled: false
+  delay_steps: 1       # Number of control steps (at 48Hz, 1 step = 20.8ms) # TODO: verify against Hönig 2018 / Neural-Swarm

@@ -1,0 +1,74 @@
+# UA-ADC (Uncertainty-Aware Adaptive Control) configuration
+# Controller D — the primary novel contribution.
+# Blends between soft-avoidance (low confidence) and feedforward compensation
+# (high confidence) based on online RLS disturbance estimation.
+
+# ── Blending parameters ──────────────────────────────────────────────────────
+# Confidence value at which the controller switches 50% toward feedforward.
+# Range [0, 1].  Lower = switches to compensation sooner (more aggressive).
+blend_threshold: 0.5
+
+# Steepness of the sigmoid transition.
+# Higher = sharper switch; lower = more gradual blend.
+blend_sharpness: 8.0
+
+# Hard clamp on feedforward compensation force magnitude [N].
+max_compensation_force: 0.25
+
+# Single-drone mass used inside the RLS estimator to convert accel → force.
+drone_mass: 0.027  # kg (Crazyflie 2.x spec)
+
+# ── Online disturbance estimator hyperparameters ─────────────────────────────
+estimator:
+  # RLS forgetting factor λ ∈ (0, 1].
+  # 1.0 = no forgetting (infinite memory).
+  # 0.95 = ~20-step half-life.  Recommended: 0.97–0.99.
+  forgetting_factor: 0.98
+
+  # Initial posterior variance P_0 (unitless).
+  # Large = estimator starts very uncertain (safe default).
+  prior_variance: 1.0
+
+  # Covariance bounds to prevent covariance windup or collapse
+  max_covariance: 5.0
+  min_covariance: 0.0001
+
+  # Normalized regressor excitation threshold (|phi_norm| < threshold freezes RLS)
+  min_excitation: 0.01
+
+  # Normalized innovation scale for confidence mapping exp(-0.5 * (e / scale)^2)
+  innovation_scale: 0.04
+
+  # Legacy P thresholds retained for reference
+  min_confidence_variance: 1.0
+  max_confidence_variance: 0.001
+
+  # Exponential moving average coefficient for the confidence signal.
+  # Higher = smoother but slower confidence signal.
+  confidence_smoothing: 0.90
+
+  # Hard cap on |θ| (gain estimate) to prevent runaway.
+  max_gain: 3.0
+
+  # Gravity constant used in force/acceleration conversion.
+  gravity: 9.81
+
+# ── Conflict (closing-speed) override ───────────────────────────────────────
+# Forces avoidance (alpha -> 0) for any drone whose predicted closest point of
+# approach (CPA) with a neighbour falls inside conflict_radius within horizon_s,
+# regardless of confidence.  Fixes the vertical-swap failure where confidence
+# rose while the drones were still approaching (open item 1).
+conflict_override:
+  enabled: true
+  horizon_s: 2.5          # [s] look-ahead for the constant-velocity CPA
+  conflict_radius: 0.30   # [m] predicted miss distance where risk reaches 0
+  hold_s: 1.0             # [s] time for risk to decay after the conflict clears
+  use_reference: true     # also check the nominal references (planned conflicts)
+
+# ── Soft-avoidance arm sub-config (passed directly to SoftAvoidController) ──
+soft_avoid:
+  max_displacement: 0.20   # [m]
+  max_velocity: 0.15       # [m/s]
+
+# ── Feedforward arm sub-config (passed directly to FeedforwardController) ───
+feedforward: {}

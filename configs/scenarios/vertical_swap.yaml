@@ -1,0 +1,13 @@
+name: "vertical_swap"
+description: "Two drones exchanging altitudes smoothly, crossing through mutual wake region"
+drone_count: 2
+duration_sec: 6.0
+trajectory_type: "VerticalSwapTrajectory"
+parameters:
+  z_high: 1.6
+  z_low: 0.8
+  x_pos: 0.0
+  y_pos: 0.0
+initial_positions:
+  - [0.0, 0.0, 1.6]  # Drone 0 begins high, descends to 0.8
+  - [0.0, 0.0, 0.8]  # Drone 1 begins low, ascends to 1.6

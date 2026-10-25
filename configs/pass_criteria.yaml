@@ -1,0 +1,37 @@
+# Pass criteria for regression and repeat runs (open item 3).
+#
+# Written and committed BEFORE the strict regression rerun. Do not change a
+# threshold after seeing results without recording the reason in
+# docs/decisions.md (decision D-012).
+#
+# A run PASSES only if every applicable criterion passes.
+version: 1
+
+criteria:
+  no_ground_contact:
+    description: "No drone goes below min_z at any time."
+    min_z_m: 0.05
+
+  min_separation:
+    description: "Closest pair distance stays above the 3D safety-net threshold."
+    min_sep_m: 0.12
+
+  confidence_rise:
+    description: >
+      UA-ADC only. Every drone that starts inside a wake reaches confidence
+      above `level` within `within_s` seconds. Not applicable when no drone
+      starts in a wake (e.g. coplanar formations) or for other controllers.
+    level: 0.5
+    within_s: 1.0
+    applies_to: [ua_adc]
+
+  tracking_vs_baseline:
+    description: >
+      UA-ADC only. Mean tracking RMSE must not exceed the Soft-Avoid RMSE on
+      the same scenario, N and seed (times `tolerance`). Soft-Avoid is the
+      baseline UA-ADC falls back to when unsure, so UA-ADC must do no worse.
+      Feedforward is reported alongside but is not a pass/fail baseline,
+      because at nominal it has the correct model by construction.
+    baseline: soft_avoid
+    tolerance: 1.05
+    applies_to: [ua_adc]

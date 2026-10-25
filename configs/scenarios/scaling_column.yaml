@@ -1,0 +1,21 @@
+name: "scaling_column"
+description: "Vertical cascading column formation across scaling drone counts N in [2, 10] to evaluate multi-source downwash stress and computational runtime"
+trajectory_type: "HoverColumnFormation"
+duration_sec: 4.0
+drone_counts_swept:
+  - 2
+  - 3
+  - 5
+  - 7
+  - 10
+parameters:
+  z_top: 2.0
+  dz: 0.35
+  x_center: 0.0
+  y_center: 0.0
+seeds_count: 20
+base_seed: 42
+controllers:
+  - "Controller_A_Naive"
+  - "Controller_B_SoftAvoid"
+  - "Controller_C_Feedforward"

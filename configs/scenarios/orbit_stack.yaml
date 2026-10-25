@@ -1,0 +1,13 @@
+name: "orbit_stack"
+description: "Three drones performing synchronized circular orbits in vertically stacked planes"
+drone_count: 3
+duration_sec: 6.0
+trajectory_type: "CircularOrbitFormation"
+parameters:
+  radius: 0.6
+  period: 6.0
+  altitudes: [1.6, 1.1, 0.6]
+initial_positions:
+  - [0.6, 0.0, 1.6]
+  - [0.6, 0.0, 1.1]
+  - [0.6, 0.0, 0.6]

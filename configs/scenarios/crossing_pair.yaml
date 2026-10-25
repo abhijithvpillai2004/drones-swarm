@@ -1,0 +1,12 @@
+name: "crossing_pair"
+description: "Two drones flying orthogonal horizontal crossing trajectories with transient vertical downwash blast"
+drone_count: 2
+duration_sec: 6.0
+trajectory_type: "CrossingTrajectory"
+parameters:
+  upper_alt: 1.4
+  lower_alt: 0.8
+  travel_distance: 1.6
+initial_positions:
+  - [-0.8, 0.0, 1.4]  # Drone 0 travels along X from -0.8 to +0.8
+  - [0.0, -0.8, 0.8]  # Drone 1 travels along Y from -0.8 to +0.8

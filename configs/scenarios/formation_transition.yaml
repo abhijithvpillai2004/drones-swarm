@@ -1,0 +1,21 @@
+# formation_transition.yaml — formation type change scenario
+# Drones transition from a horizontal line → V formation
+name: formation_transition
+description: >
+  N drones start in a horizontal line, then receive new setpoints
+  in a V formation mid-flight. Tests formation tracking performance
+  during manoeuvring, including downwash interactions during
+  the transition when vertical separation temporarily varies.
+
+n_drones: 3
+duration_s: 20.0
+transition_time_s: 8.0      # switch formation targets at this time
+
+formation_start:
+  type: line
+  spacing_m: 0.5
+
+formation_end:
+  type: V
+  spacing_m: 0.5
+  vertical_offset_m: 0.3    # tip drone drops below wing drones

@@ -1,0 +1,24 @@
+# position_swap.yaml — drones exchange positions (pass above/below)
+name: position_swap
+description: >
+  Two drones exchange their target positions such that one must
+  pass directly above/below the other. This is the worst-case
+  downwash scenario because the victim drone is directly in
+  the wake during the crossing. Measures control authority
+  and near-collision counts.
+
+n_drones: 2
+duration_s: 15.0
+swap_start_s: 3.0     # begin moving towards swapped positions
+
+initial_positions:
+  - [0.0, 0.0, 1.5]   # drone 0 starts high
+  - [0.0, 0.0, 0.5]   # drone 1 starts low
+
+target_positions_phase1:  # hold before swap
+  - [0.0, 0.0, 1.5]
+  - [0.0, 0.0, 0.5]
+
+target_positions_phase2:  # swapped
+  - [0.0, 0.0, 0.5]
+  - [0.0, 0.0, 1.5]

@@ -1,0 +1,25 @@
+# gate_crossing.yaml — formation passes through a narrow gate region
+name: gate_crossing
+description: >
+  Formation of N drones translates forward (y-axis) to cross a
+  virtual gate of width 1.0 m at y = 2.0 m. The gate forces
+  drones to compress horizontally, temporarily increasing their
+  vertical overlap and downwash interactions.
+
+n_drones: 3
+duration_s: 20.0
+
+gate:
+  position_y_m: 2.0
+  width_m: 1.0          # total allowed lateral spread at gate
+  height_centre_m: 1.0  # z-centre of gate
+
+initial_positions:
+  - [-0.5, 0.0, 1.0]
+  - [ 0.0, 0.0, 1.0]
+  - [ 0.5, 0.0, 1.0]
+
+target_positions:
+  - [-0.5, 4.0, 1.0]
+  - [ 0.0, 4.0, 1.0]
+  - [ 0.5, 4.0, 1.0]

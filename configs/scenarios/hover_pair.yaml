@@ -1,0 +1,10 @@
+name: "hover_pair"
+description: "Two drones in vertical alignment to test downwash disturbance on the lower drone"
+drone_count: 2
+initial_positions:
+  - [0.0, 0.0, 1.5]  # Upper drone
+  - [0.0, 0.0, 0.8]  # Lower drone (in downwash wake)
+target_positions:
+  - [0.0, 0.0, 1.5]
+  - [0.0, 0.0, 0.8]
+duration_sec: 5.0

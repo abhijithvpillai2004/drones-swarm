@@ -1,0 +1,25 @@
+# ASSUMED aerodynamic downwash model (used strictly by controllers for planning and compensation)
+# NEVER import or link this to the TRUE model to maintain independent mismatch capability.
+model_type: "ellipsoidal"
+
+# Ellipsoid semi-axes / influence radii (meters)
+radius_xy: 0.25      # [m] Horizontal radius of influence # TODO: verify against Hönig 2018 / Neural-Swarm
+radius_z: 0.80       # [m] Vertical wake reach below drone # TODO: verify against Hönig 2018 / Neural-Swarm
+
+# Disturbance force parameters
+max_force_z: 0.15    # [N] Peak downward force at wake core # TODO: verify against Hönig 2018 / Neural-Swarm
+radial_falloff: "gaussian"  # Options: gaussian, quadratic, linear # TODO: verify against Hönig 2018 / Neural-Swarm
+vertical_falloff: "exponential" # Options: exponential, linear # TODO: verify against Hönig 2018 / Neural-Swarm
+
+# Wake tilt / drift under upper drone horizontal velocity
+wake_skew_coefficient: 0.1  # [s] Horizontal shift proportional to upper drone velocity # TODO: verify against Hönig 2018 / Neural-Swarm
+
+# Multi-source overlapping wake combination parameters
+combination_mode: "linear_sum"  # Options: linear_sum, max, sublinear, saturated
+max_combined_force_z: 0.45      # [N] Ceiling on cumulative multi-rotor downward disturbance
+sublinear_gamma: 0.8            # Exponent for sublinear superposition mode
+
+# General 3D proximity safety net parameters (Step 2 hardening)
+safe_distance_threshold: 0.12        # [m] 3D Euclidean clearance threshold (~2.6x propeller diameter) # TODO-verify against experimental collision envelope
+safety_repulsion_max_force: 0.10     # [N] Maximum emergency repulsive force at zero separation # TODO-verify against motor thrust limits
+safety_repulsion_displacement: 0.08  # [m] Maximum emergency position setpoint displacement # TODO-verify
